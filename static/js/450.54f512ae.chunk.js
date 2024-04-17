@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkcamping_rent_in_ua=self.webpackChunkcamping_rent_in_ua||[]).push([[450],{450:(e,n,s)=>{s.r(n),s.d(n,{default:()=>l});var r=s(43),a=s(3),t=s(356);const c=e=>e.adverts.items,d=e=>e.adverts.selectIsLoading,i=e=>e.adverts.error;var u=s(579);const l=function(){const e=(0,a.wA)(),n=(0,a.d4)(c),s=(0,a.d4)(d);return(0,a.d4)(i),(0,r.useEffect)((()=>{e((0,t.F)())})),s?(0,u.jsx)("p",{children:"Loading...."}):(0,u.jsx)("ul",{children:n.map((e=>(0,u.jsx)("li",{children:e.name},e.id)))})}}}]);
+//# sourceMappingURL=450.54f512ae.chunk.js.map
