@@ -11,12 +11,30 @@ function CatalogPage() {
 
     useEffect(() => {
         dispatch(fetchData());
-    })
+    }, [dispatch])
 
     return (
-        isLoading ? (<p>Loading....</p>) : <ul>{
-            adverts.map(advert => (<li key={advert.id}>{advert.name}</li>))}
-            </ul>
+        isLoading ? (<p>Loading....</p>) : 
+            <div>
+            <label htmlFor="location">Location</label>
+                <input name='location' type="text" />
+                <h3>Filters</h3>
+                <h4>Vehicle equipment</h4>
+                <div>
+                    <svg className="icon"><use className="icon" href="./symbol-defs.svg#icon-arcticons_freezer" /></svg>
+                    <button type="button"><svg><use href="../symbol-defs.svg#icon-arcticons_freezer" /></svg>AC</button>
+                    <button type="button"></button>
+                    <button type="button"></button>
+                    <button type="button"></button>
+                    <button type="button"></button>
+                </div>
+                <h4>Vehicle type</h4>
+
+                <ul>{
+            adverts.map(advert => (<li key={advert.id}>{advert.name}</li>))
+            }
+                </ul>
+                </div>
     )
 };
 
