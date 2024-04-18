@@ -1,0 +1,36 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: var(--inputs);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    margin-bottom: 15px;
+}
+
+.title_box{
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.navigation{
+    display: flex;
+    gap: 10px;
+}
+
+.link{
+    transition: var(--transition);
+}
+
+.link:hover, 
+.link:focus{
+    text-decoration: underline;
+    color: var(--rating);
+}
+
+/* a .link .active {
+    text-decoration: underline;
+    color: var(--rating);
+} */
+
+
