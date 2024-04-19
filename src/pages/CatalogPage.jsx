@@ -5,6 +5,7 @@ import { selectData, selectError, selectIsLoading } from "../redux/selectors";
 import { CamperCatalogCamp } from "../components/CamperCatalogCard/CamperCatalogCard";
 import styles from "./CatalogPage.module.css";
 import { SideBarSection } from "../components/SideBarSection/SideBarSection";
+import { ModalWindow } from "../components/ModalWindow/ModalWindow";
 
 function CatalogPage() {
     const dispatch = useDispatch();
@@ -12,15 +13,39 @@ function CatalogPage() {
     const isLoading = useSelector(selectIsLoading);
     const error = useSelector(selectError);
     const [isLoad, setIsLoad] = useState(false);
+    const [activeModal, setActiveModal] = useState(false);
+    const [advertId, setAdvertId] = useState('');
+    const [favorites, setFavorites] = useState(null);
+
+    useEffect(() => {
+        dispatch(fetchData());
+        if (localStorage.getItem('favorites')) {
+            setFavorites(JSON.stringify(localStorage.getItem('favorites')))
+        }
+        else {
+            setFavorites([]);
+        }
+        if (!activeModal) return
+        const handleEsc = (e) => {
+            if (activeModal && e.key === "Escape") {
+                e.preventDefault();
+                setActiveModal(false);
+            }
+        }
+        document.addEventListener('keydown', handleEsc);
+        return (() => {
+            document.removeEventListener('keydown', handleEsc);
+        });
+
+    }, [dispatch, activeModal])
 
     const handleLoadMoreClick = () => {
         setIsLoad(true);
     }
-
-    useEffect(() => {
-        dispatch(fetchData());
-    }, [dispatch])
-
+    const addFavorite = (data) => {
+        // setFavorites([...favorites, data]);
+    }
+    console.log(favorites);
     return (
         isLoading ? (<p>Loading....</p>) : 
             <div className={styles.main_container}>
@@ -28,34 +53,25 @@ function CatalogPage() {
                 <section>
                     {adverts.length > 0 ? (
                         <>
-                            <ul>{
-                                isLoad ? adverts.map(advert => (<CamperCatalogCamp name={advert.name}
-                        imgSrc={advert.gallery[0]}
-                        price={advert.price}
-                        rating={advert.rating}
-                        reviewsLength={advert.reviews.length}
-                        location={advert.location}
-                        description={advert.description}
-                        adults={advert.adults}
-                        beds={advert.details.beds }
-                        key={advert.id}>
+                            <ul className={styles.card_box}>{
+                                isLoad ? adverts.map(advert => (<CamperCatalogCamp data={advert}
+                        setActive={setActiveModal}
+                        setAdvertId={setAdvertId}
+                        favorite={favorites.find(fav => fav.name === advert.name) ? true : false}
+                        setFavorite={addFavorite}>
                         </CamperCatalogCamp>)) :
-                    adverts.slice(0, 4).map(advert => (<CamperCatalogCamp name={advert.name}
-                        imgSrc={advert.gallery[0]}
-                        price={advert.price}
-                        rating={advert.rating}
-                        reviewsLength={advert.reviews.length}
-                        location={advert.location}
-                        description={advert.description}
-                        adults={advert.adults}
-                        beds={advert.details.beds }
-                        key={advert.id}>
+                    adverts.slice(0, 4).map(advert => (<CamperCatalogCamp data={advert}
+                        setActive={setActiveModal}
+                        setAdvertId={setAdvertId}
+                        favorite={favorites.find(fav => fav.name === advert.name) ? true : false}
+                        addFavorite={addFavorite}>
                         </CamperCatalogCamp>))
                     }
-                        </ul>
-                        {!isLoad && (<button type="button" onClick={handleLoadMoreClick}>Load more</button>)}    
+                        </ul>    
+                        {!isLoad && (<div className={styles.load_more_btn_box}><button className={styles.load_more_button} type="button" onClick={handleLoadMoreClick}>Load more</button></div>)}    
                             </>)
                         : (<p>There is no campers</p>)}
+                    {activeModal && <ModalWindow active={activeModal} setActive={setActiveModal} data={adverts.find(item => item._id === advertId)} />}
                 </section>
             </div>
     )

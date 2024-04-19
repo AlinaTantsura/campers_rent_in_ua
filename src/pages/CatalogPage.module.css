@@ -1,5 +1,28 @@
 .main_container{
     display: flex;
-    padding: 0 15px;
-    width: 888px;
+    gap: 64px;
+    padding: 0 64px 40px 40px;
+    width: 1440px;
+}
+
+.load_more_btn_box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.load_more_button{
+    margin-top: 12px;
+    border: 1px solid rgba(71, 84, 103, 0.2);
+    border-radius: 200px;
+    padding: 16px 32px;
+    letter-spacing: -0.01em;
+    color: var(--main);
+    transition: var(--transition);
+}
+
+.load_more_button:hover,
+.load_more_button:focus{
+    border: 1px solid var(--button);
+    cursor: pointer;
 }

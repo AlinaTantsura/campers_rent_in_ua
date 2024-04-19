@@ -6,7 +6,7 @@ export const SideBarSection = () => {
                 <label className={styles.text_location} htmlFor="location">Location</label>
                 <div className={styles.input_box}>
                     <svg width="18" height="20"><use href={sprite + "#icon-location"} /></svg>
-                    <input className={styles.input_field} name='location' type="text" value="Kyiv, Ukraine"/>
+                    <input className={styles.input_field} name='location' type="text" defaultValue="Kyiv, Ukraine"/>
                 </div>
                 <h3 className={styles.filter}>Filters</h3>
                 <h4 className={styles.filter_title}>Vehicle equipment</h4>

@@ -68,3 +68,9 @@
     color: #FFFFFF;
     margin-top: 48px;
 }
+
+.search_button:hover,
+.search_button:focus {
+    cursor: pointer;
+    background: #d84343;
+}
