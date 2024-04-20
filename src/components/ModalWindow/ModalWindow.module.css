@@ -10,6 +10,7 @@
     align-items: center;
     opacity: 0;
     transition: var(--transition);
+    /* overflow-y: scroll; */
 }
 
 .backdrop.active{
@@ -20,7 +21,8 @@
     border-radius: 20px;
     padding: 40px;
     width: 982px;
-    /* height: 720px; */
+    overflow-y: scroll;
+    max-height: 920px;
     background-color: #fff;
     transform: scale(0);
     transition: var(--transition);

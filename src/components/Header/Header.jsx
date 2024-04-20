@@ -9,7 +9,8 @@ const Header = () => {
     }
 
     return (
-        <header className={styles.header}>
+        <header >
+            <div className={styles.header}>
             <div onClick={handleClick} className={styles.title_box}>
                 <img src={camper} alt="Icon camper" width={"25px"}/>
                 <h3>Campers rent</h3>
@@ -18,7 +19,8 @@ const Header = () => {
                 <NavLink className={styles.link} to="/">Home</NavLink>
                 <NavLink className={styles.link} to="/catalog">Catalog</NavLink>
                 <NavLink className={styles.link} to="/favorites">Favorites</NavLink>
-            </nav>
+                </nav>
+            </div>
         </header>
     )
 };

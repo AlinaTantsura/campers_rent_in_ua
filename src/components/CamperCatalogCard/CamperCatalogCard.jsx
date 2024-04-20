@@ -3,7 +3,7 @@ import sprite from "../images/sprite.svg";
 import styles from "./CamperCatalogCard.module.css"
 import { selectFavorites } from "../../redux/favorites/favoriteSelectors";
 import { useEffect, useState } from "react";
-import { addFavorite, deleteFavorite } from "../../redux/favorites/favoritesSlice";
+import { addCurrentItemInfo, addFavorite, deleteFavorite } from "../../redux/favorites/favoritesSlice";
 
 export const CamperCatalogCamp = ({ data, setActive, setAdvertId}) => {
     const favorites = useSelector(selectFavorites);
@@ -64,13 +64,13 @@ export const CamperCatalogCamp = ({ data, setActive, setAdvertId}) => {
                         <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Kitchen"} /></svg>Kitchen</button>
                     </li>
                     <li className={styles.button_item}>
-                        <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Bed"} /></svg>{data.beds } beds</button>
+                        <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Bed"} /></svg>{data.details.beds } beds</button>
                     </li>
                     <li className={styles.button_item}>
                         <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Vector"} /></svg>AC</button>
                     </li>
                 </ul>
-                <button className={styles.show_more_button} type="button" onClick={() => { setActive(true); setAdvertId(data._id)}}>Show more</button>
+                <button className={styles.show_more_button} type="button" onClick={() => { setActive(true); dispatch(addCurrentItemInfo(data))}}>Show more</button>
             </div>    
         </li>
     )

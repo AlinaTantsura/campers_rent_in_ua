@@ -90,10 +90,6 @@
     margin-bottom: 24px;
 }
 
-.button_item{
-    width: calc((100% - 24px) / 4);
-
-}
 .button{
     width: 100%;
     background: var(--block-features);
@@ -103,6 +99,7 @@
     line-height: 125%;
     color: var(--main);
     display: flex;
+    gap: 4px;
     justify-content: center;
     align-items: center;
 }

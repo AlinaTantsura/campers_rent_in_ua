@@ -6,15 +6,16 @@ import { CamperCatalogCamp } from "../components/CamperCatalogCard/CamperCatalog
 import styles from "./CatalogPage.module.css";
 import { SideBarSection } from "../components/SideBarSection/SideBarSection";
 import { ModalWindow } from "../components/ModalWindow/ModalWindow";
+import { useNavigate } from "react-router-dom";
 
 function CatalogPage() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const adverts = useSelector(selectData);
     const isLoading = useSelector(selectIsLoading);
     const error = useSelector(selectError);
     const [isLoad, setIsLoad] = useState(false);
     const [activeModal, setActiveModal] = useState(false);
-    const [advertId, setAdvertId] = useState('');
 
     useEffect(() => {
 
@@ -25,6 +26,7 @@ function CatalogPage() {
             if (activeModal && e.key === "Escape") {
                 e.preventDefault();
                 setActiveModal(false);
+                navigate("/catalog");
             }
         }
         document.addEventListener('keydown', handleEsc);
@@ -32,7 +34,16 @@ function CatalogPage() {
             document.removeEventListener('keydown', handleEsc);
         });
 
-    }, [dispatch, activeModal])
+    }, [dispatch, activeModal, navigate])
+
+    if (activeModal) {
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${window.scrollY}px`;
+    }
+    else {
+        document.body.style.position = '';
+        document.body.style.top = '';
+    }
 
     const handleLoadMoreClick = () => {
         setIsLoad(true);
@@ -46,19 +57,17 @@ function CatalogPage() {
                         <>
                             <ul className={styles.card_box}>{
                                 isLoad ? adverts.map(advert => (<CamperCatalogCamp data={advert}
-                        setActive={setActiveModal}
-                        setAdvertId={setAdvertId}>
+                        setActive={setActiveModal}>
                         </CamperCatalogCamp>)) :
                     adverts.slice(0, 4).map(advert => (<CamperCatalogCamp data={advert}
-                        setActive={setActiveModal}
-                        setAdvertId={setAdvertId}>
+                        setActive={setActiveModal}>
                         </CamperCatalogCamp>))
                     }
                         </ul>    
                         {!isLoad && (<div className={styles.load_more_btn_box}><button className={styles.load_more_button} type="button" onClick={handleLoadMoreClick}>Load more</button></div>)}    
                             </>)
                         : (<p>There is no campers</p>)}
-                    {activeModal && <ModalWindow active={activeModal} setActive={setActiveModal} data={adverts.find(item => item._id === advertId)} />}
+                    {activeModal && <ModalWindow active={activeModal} setActive={setActiveModal} />}
                 </section>
             </div>
     )
