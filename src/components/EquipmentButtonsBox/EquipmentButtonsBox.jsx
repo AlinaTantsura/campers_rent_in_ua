@@ -33,42 +33,42 @@ export const EquipmentButtonsBox = () => {
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Bed"} /></svg>{data.details.beds} beds</button>
                 </li>
             )}
-            {(data.airConditioner) && (
+            {(data.details.airConditioner !== 0) && (
+                <>
                 <li>
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Vector"} /></svg>AC</button>
                 </li>
-            )}
-            {(data.details.airConditioner) && (
                 <li>
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-streamline_hotel-air-conditioner"} /></svg>{data.details.airConditioner} air conditioner</button>
-                </li>
+                    </li>
+                </>
             )}
-            {(data.details.CD) && (
+            {(data.details.CD !== 0) && (
                 <li>
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-circle-disk"} /></svg>CD</button>
                 </li>
             )}
-            {(data.details.radio) && (
+            {(data.details.radio !== 0) && (
                 <li>
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-solar_radio-linear"} /></svg>Radio</button>
                 </li>
             )}
-            {(data.details.hob) && (
+            {(data.details.hob !== 0) && (
                 <li>
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Microwave"} /></svg>{data.details.hob} hob</button>
                 </li>
             )}
-            {(data.details.toilet) && (
+            {(data.details.toilet !== 0) && (
                 <li>
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-mingcute_toilet-paper-line"} /></svg>Toilet</button>
                 </li>
             )}
-            {(data.details.shower) && (
+            {(data.details.shower !== 0) && (
                 <li>
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Rating"} /></svg>Shower</button>
                 </li>
             )}
-            {(data.details.freezer) && (
+            {(data.details.freezer !== 0) && (
                 <li>
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-arcticons_freezer"} /></svg>Freezer</button>
                 </li>
@@ -83,7 +83,7 @@ export const EquipmentButtonsBox = () => {
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Water"} /></svg>Water</button>
                 </li>
             )}
-            {(data.details.microwave) && (
+            {(data.details.microwave !== 0) && (
                 <li>
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-streamline_microwave"} /></svg>Microwave</button>
                 </li>

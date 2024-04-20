@@ -1,3 +1,85 @@
+.container{
+    border: 1px solid rgba(16, 24, 40, 0.2);
+    border-radius: 10px;
+    padding: 24px;
+    min-width: 448px;
+    height: 532px;
+}
+
+.title_form{
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 120%;
+    color: var(--main);
+}
+
+.text_form{
+    font-weight: 400;
+    margin-bottom: 24px;
+}
+
 .form_box{
-    /* width: 740px; */
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.input_form{
+    border: none;
+    border-radius: 10px;
+    padding: 18px;
+    width: 400px;
+    height: 56px;
+    outline: none;
+    background-color: var(--inputs);
+}
+.error_input{
+    border-color: red;
+    border-radius: 10px;
+    padding: 18px;
+    width: 400px;
+    height: 56px;
+    outline: none;
+    background-color: var(--inputs);
+}
+
+.error{
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+}
+
+.date_input::-webkit-calendar-picker-indicator {
+    width: 20px;
+}
+
+/* .date_input{
+    background: url("../images/Button.svg") #f7f9fc no-repeat 95% 50%;
+} */
+
+/* .bookingDate_btn{
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: none;
+    background-color: transparent;
+    margin: 18px;
+    padding: 0;
+} */
+.send_button{
+    border: none;
+    border-radius: 200px;
+    padding: 16px 60px;
+    width: 160px;
+    height: 56px;
+    background: var(--button);
+    color: #FFFFFF;
+    transition: var(--transition);
+}
+
+.send_button:hover,
+.send_button:focus{
+    border: none;
+    cursor: pointer;
+    background: #d84343;
 }
