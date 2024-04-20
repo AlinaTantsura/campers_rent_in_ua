@@ -33,7 +33,7 @@
 <symbol id="icon-Kitchen" viewBox="0 0 32 32" fill="none" stroke="#101828">
 <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.4" d="M25.333 20v-16c-6.421 6.125-6.697 11.092-6.667 16h6.667zM25.333 20v8h-1.333v-4M10.667 5.333v22.667M6.667 5.333v4c0 1.061 0.421 2.078 1.172 2.828s1.768 1.172 2.828 1.172c1.061 0 2.078-0.421 2.828-1.172s1.172-1.768 1.172-2.828v-4"></path>
 </symbol>
-<symbol id="circle-disk" viewBox="0 0 32 32" fill="none" stroke="#101828">
+<symbol id="icon-circle-disk" viewBox="0 0 32 32" fill="none" stroke="#101828">
 <path stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.4" d="M16 28c6.627 0 12-5.373 12-12s-5.373-12-12-12c-6.627 0-12 5.373-12 12s5.373 12 12 12z"></path>
 <path stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.4" d="M8.667 16c0-4.050 3.283-7.333 7.333-7.333"></path>
 <path stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.4" d="M16 19.333c1.841 0 3.333-1.492 3.333-3.333s-1.492-3.333-3.333-3.333c-1.841 0-3.333 1.492-3.333 3.333s1.492 3.333 3.333 3.333z"></path>
@@ -83,6 +83,9 @@
 </symbol>
 <symbol id="icon-Star" viewBox="0 0 32 32">
 <path fill="#ffc531" style="fill: var(--color3, #ffc531); stroke: var(--color3, #ffc531)" stroke="#ffc531" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.4" d="M12.4 10.394l3.6-6.822 3.6 6.822c0.318 0.603 0.899 1.025 1.571 1.141l7.601 1.315-5.376 5.532c-0.475 0.489-0.697 1.171-0.6 1.846l1.098 7.635-6.922-3.404c-0.612-0.301-1.329-0.301-1.941 0l-6.922 3.404 1.098-7.635c0.097-0.675-0.125-1.357-0.6-1.846l-5.376-5.532 7.601-1.315c0.672-0.116 1.252-0.538 1.571-1.141zM29.035 12.579v0zM7.767 28.031c0 0 0 0 0 0h-0z"></path>
+</symbol>
+<symbol id="icon-Star-gray" viewBox="0 0 34 32">
+<path fill="#f2f4f7" style="fill: var(--color1, #f2f4f7); stroke: var(--color1, #f2f4f7)" stroke="#f2f4f7" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.56" d="M13.227 10.020l3.84-7.277 3.84 7.277c0.34 0.644 0.959 1.093 1.675 1.217l8.108 1.403-5.735 5.9c-0.507 0.522-0.744 1.249-0.64 1.97l1.171 8.144-7.384-3.631c-0.653-0.321-1.418-0.321-2.071 0l-7.384 3.631 1.171-8.144c0.104-0.72-0.133-1.448-0.64-1.97l-5.735-5.9 8.108-1.403c0.717-0.124 1.336-0.574 1.675-1.217z"></path>
 </symbol>
 <symbol id="icon-streamline_hotel-air-conditioner" viewBox="0 0 32 32" fill="none" stroke="#101828">
 <path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.4" d="M28.571 1.143h-25.143c-0.606 0-1.188 0.241-1.616 0.669s-0.669 1.010-0.669 1.616v11.429c0 0.606 0.241 1.188 0.669 1.616s1.010 0.669 1.616 0.669h25.143c0.606 0 1.188-0.241 1.616-0.669s0.67-1.010 0.67-1.616v-11.429c0-0.606-0.241-1.188-0.67-1.616s-1.010-0.669-1.616-0.669z"></path>
