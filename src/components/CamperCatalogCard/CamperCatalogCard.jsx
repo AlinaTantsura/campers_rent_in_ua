@@ -1,9 +1,30 @@
+import { useDispatch, useSelector } from "react-redux";
 import sprite from "../images/sprite.svg";
 import styles from "./CamperCatalogCard.module.css"
+import { selectFavorites } from "../../redux/favorites/favoriteSelectors";
+import { useEffect, useState } from "react";
+import { addFavorite, deleteFavorite } from "../../redux/favorites/favoritesSlice";
 
-export const CamperCatalogCamp = ({ data, favorite, setActive, setAdvertId, addFavorite }) => {
-    const handleClickFav = (data) => {
-        if(!favorite) addFavorite(data)
+export const CamperCatalogCamp = ({ data, setActive, setAdvertId}) => {
+    const favorites = useSelector(selectFavorites);
+    const dispatch = useDispatch();
+    const [favorite, setFavorite] = useState(false);
+
+    useEffect(() => {
+        if (favorites.find(fav => fav.name === data.name))
+            setFavorite(true);
+    }, [favorites, data.name])
+   
+    const handleFavoriteProp = () => {
+        if (!favorite) {
+            setFavorite(true);
+            dispatch(addFavorite(data))
+            
+        }
+        else {
+            setFavorite(false);
+            dispatch(deleteFavorite(data.name))
+        }
     }
 
     return (
@@ -16,7 +37,7 @@ export const CamperCatalogCamp = ({ data, favorite, setActive, setAdvertId, addF
                     <h2 className={styles.title}>{data.name}</h2>
                     <div className={styles.price_box}>
                         <p className={styles.price}>€{data.price}</p>
-                        <button className={styles.fav_button} onClick={handleClickFav(data)}>
+                        <button className={styles.fav_button} onClick={handleFavoriteProp}>
                             <svg width="24" height="24">
                                 <use href={favorite ?  sprite + "#icon-Property-1pressed" : sprite + "#icon-Property-1Default"} />
                             </svg>

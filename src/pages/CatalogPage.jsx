@@ -15,16 +15,11 @@ function CatalogPage() {
     const [isLoad, setIsLoad] = useState(false);
     const [activeModal, setActiveModal] = useState(false);
     const [advertId, setAdvertId] = useState('');
-    const [favorites, setFavorites] = useState(null);
 
     useEffect(() => {
+
         dispatch(fetchData());
-        if (localStorage.getItem('favorites')) {
-            setFavorites(JSON.stringify(localStorage.getItem('favorites')))
-        }
-        else {
-            setFavorites([]);
-        }
+        
         if (!activeModal) return
         const handleEsc = (e) => {
             if (activeModal && e.key === "Escape") {
@@ -42,10 +37,6 @@ function CatalogPage() {
     const handleLoadMoreClick = () => {
         setIsLoad(true);
     }
-    const addFavorite = (data) => {
-        // setFavorites([...favorites, data]);
-    }
-    console.log(favorites);
     return (
         isLoading ? (<p>Loading....</p>) : 
             <div className={styles.main_container}>
@@ -56,15 +47,11 @@ function CatalogPage() {
                             <ul className={styles.card_box}>{
                                 isLoad ? adverts.map(advert => (<CamperCatalogCamp data={advert}
                         setActive={setActiveModal}
-                        setAdvertId={setAdvertId}
-                        favorite={favorites.find(fav => fav.name === advert.name) ? true : false}
-                        setFavorite={addFavorite}>
+                        setAdvertId={setAdvertId}>
                         </CamperCatalogCamp>)) :
                     adverts.slice(0, 4).map(advert => (<CamperCatalogCamp data={advert}
                         setActive={setActiveModal}
-                        setAdvertId={setAdvertId}
-                        favorite={favorites.find(fav => fav.name === advert.name) ? true : false}
-                        addFavorite={addFavorite}>
+                        setAdvertId={setAdvertId}>
                         </CamperCatalogCamp>))
                     }
                         </ul>    
