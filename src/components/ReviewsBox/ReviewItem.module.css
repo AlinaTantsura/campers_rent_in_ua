@@ -38,6 +38,10 @@
     color: var(--main);
 }
 
+.stars_box{
+    display: flex;
+}
+
 .comment{
     font-weight: 400;
 }

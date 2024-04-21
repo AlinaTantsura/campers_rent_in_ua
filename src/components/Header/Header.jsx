@@ -6,8 +6,6 @@ const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const isHomePath = location.pathname === "/"
-
     const handleClick = () => {
         navigate("/")
     }
