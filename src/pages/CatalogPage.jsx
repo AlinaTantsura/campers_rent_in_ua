@@ -57,10 +57,10 @@ function CatalogPage() {
                         <>
                             <ul className={styles.card_box}>{
                                 isLoad ? adverts.map(advert => (<CamperCatalogCamp data={advert}
-                        setActive={setActiveModal}>
+                        setActive={setActiveModal} key={advert._id}>
                         </CamperCatalogCamp>)) :
                     adverts.slice(0, 4).map(advert => (<CamperCatalogCamp data={advert}
-                        setActive={setActiveModal}>
+                        setActive={setActiveModal} key={advert._id}>
                         </CamperCatalogCamp>))
                     }
                         </ul>    

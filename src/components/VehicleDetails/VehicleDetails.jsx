@@ -4,7 +4,6 @@ import { selectCurrent } from "../../redux/favorites/favoriteSelectors";
 
 export const VehicleDetails = () => {
     const data = useSelector(selectCurrent);
-    console.log(data)
     return (
         <>
             <h3 className={styles.title_vehicle}>Vehicle details</h3>

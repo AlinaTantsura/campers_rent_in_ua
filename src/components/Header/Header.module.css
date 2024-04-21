@@ -29,9 +29,9 @@
     color: var(--rating);
 }
 
-/* a .link .active {
+.active {
     text-decoration: underline;
     color: var(--rating);
-} */
+}
 
 

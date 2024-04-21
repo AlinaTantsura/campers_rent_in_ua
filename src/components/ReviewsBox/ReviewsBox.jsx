@@ -5,7 +5,6 @@ import { nanoid } from "nanoid";
 
 export const ReviewsBox = () => {
     const { reviews } = useSelector(selectCurrent);
-    console.log(reviews)
     return (
         reviews && (<ul>
             {reviews.map(review => (<ReviewItem key={nanoid()} review={review} />))}

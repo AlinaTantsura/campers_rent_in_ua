@@ -88,6 +88,11 @@ export const EquipmentButtonsBox = () => {
                     <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-streamline_microwave"} /></svg>Microwave</button>
                 </li>
             )}
+            {(data.details.TV !== 0) && (
+                <li>
+                    <button className={styles.button} type="button"><svg width="20" height="20"><use href={sprite + "#icon-Vertical-container-1"} /></svg>TV</button>
+                </li>
+            )}
                 
                 </ul>
     )

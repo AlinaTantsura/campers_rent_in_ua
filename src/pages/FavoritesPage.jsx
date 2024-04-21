@@ -1,6 +1,10 @@
+import { FavoriteSection } from "../components/FavoriteSection/FavoriteSection";
+
 function FavoritesPage(){
     return (
-        <h1>Favorites</h1>
+        <main>
+            <FavoriteSection />
+        </main>
     )
 };
 

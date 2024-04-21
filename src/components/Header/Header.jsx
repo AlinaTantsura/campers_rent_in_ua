@@ -1,9 +1,13 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Header.module.css";
 import camper from "../images/camper.png";
 
 const Header = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const isHomePath = location.pathname === "/"
+
     const handleClick = () => {
         navigate("/")
     }
@@ -16,9 +20,9 @@ const Header = () => {
                 <h3>Campers rent</h3>
             </div>
             <nav className={styles.navigation}>
-                <NavLink className={styles.link} to="/">Home</NavLink>
-                <NavLink className={styles.link} to="/catalog">Catalog</NavLink>
-                <NavLink className={styles.link} to="/favorites">Favorites</NavLink>
+                <Link className={(location.pathname === "/") ? `${styles.active} ${styles.link}` : `${styles.link}`} to="/">Home</Link>
+                <Link className={(location.pathname === "/catalog" || location.pathname === "/catalog/features" || location.pathname === "/catalog/reviews") ? `${styles.active} ${styles.link}` : `${styles.link}`} to="/catalog">Catalog</Link>
+                <Link className={(location.pathname === "/favorites" || location.pathname ==="/favorites/features" || location.pathname ==="/favorites/reviews") ? `${styles.active} ${styles.link}` : `${styles.link}`} to="/favorites">Favorites</Link>
                 </nav>
             </div>
         </header>

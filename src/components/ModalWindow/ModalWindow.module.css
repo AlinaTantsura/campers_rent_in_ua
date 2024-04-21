@@ -80,6 +80,7 @@
     font-size: 24px;
     color: var(--main);
     margin: 16px 0 24px;
+    text-align: start;
 }
 
 .pictures_box{

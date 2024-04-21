@@ -1,7 +1,7 @@
 import { Formik } from "formik"
 import styles from "./FormSubmit.module.css"
 import * as Yup from "yup"
-import sprite from "../images/sprite.svg"
+// import sprite from "../images/sprite.svg"
 
 export const FormSubmit = () => {
     return (
@@ -35,7 +35,6 @@ export const FormSubmit = () => {
           touched,
           handleBlur,
           isValid,
-          dirty
         } = formik;
         return (
             <div className={styles.container}>
@@ -73,8 +72,7 @@ export const FormSubmit = () => {
                     name="bookingDate"
                     id="bookingDate"
                     className={errors.bookingDate && touched.bookingDate ? `${styles.error_input} ${styles.date_input}` : `${styles.input_form} ${styles.date_input}`}
-                    value={Date.now}
-                    // value={values.bookingDate}
+                    // value={Date.now}
                     onChange={handleChange}
                     onBlur={handleBlur}
                         />
