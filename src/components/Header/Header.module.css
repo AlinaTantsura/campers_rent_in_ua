@@ -1,4 +1,4 @@
-.header_box{
+/* .header_box{
     display: flex;
     justify-content: space-between;
     padding: 15px 64px 15px 40px;
@@ -6,7 +6,7 @@
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     margin-bottom: 15px;
     max-width: 1440px;
-}
+} */
 
 .title_box{
     display: flex;

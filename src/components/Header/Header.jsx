@@ -20,7 +20,7 @@ const Header = () => {
                 <Link className={(location.pathname === "/") ? `${styles.active} ${styles.link}` : `${styles.link}`} to="/">Home</Link>
                 <Link className={(location.pathname === "/catalog" || location.pathname === "/catalog/features" || location.pathname === "/catalog/reviews") ? `${styles.active} ${styles.link}` : `${styles.link}`} to="/catalog">Catalog</Link>
                 <Link className={(location.pathname === "/favorites" || location.pathname ==="/favorites/features" || location.pathname ==="/favorites/reviews") ? `${styles.active} ${styles.link}` : `${styles.link}`} to="/favorites">Favorites</Link>
-                </nav>
+                </nav>   
         </header>
     )
 };

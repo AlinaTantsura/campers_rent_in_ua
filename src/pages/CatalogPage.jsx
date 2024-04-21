@@ -51,6 +51,8 @@ function CatalogPage() {
         setIsLoad(true);
     }
     return (
+        <main>
+            {
         (isLoading && !error) ? (<p>Loading....</p>) :  
             (<div className={styles.main_container}>
                 <SideBarSection />
@@ -72,7 +74,8 @@ function CatalogPage() {
                 
                     {activeModal && <ModalWindow active={activeModal} setActive={setActiveModal} />}
                 </section>
-                </div>)
+            </div>)}
+        </main>    
     )
 };
 
