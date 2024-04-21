@@ -8,8 +8,8 @@
     max-width: 1440px;
 } */
 
-.nav_box{
-    display: flex;
+.nav_box {
+    display: flex!important; 
 }
 .title_box{
     display: flex;
