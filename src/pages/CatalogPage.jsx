@@ -43,8 +43,8 @@ function CatalogPage() {
     else {
         document.body.style.position = '';
         document.body.style.top = '';
-    }
-
+    };
+    
     const handleLoadMoreClick = () => {
         setIsLoad(true);
     }
@@ -64,7 +64,7 @@ function CatalogPage() {
                         </CamperCatalogCamp>))
                     }
                         </ul>    
-                        {!isLoad && (<div className={styles.load_more_btn_box}><button className={styles.load_more_button} type="button" onClick={handleLoadMoreClick}>Load more</button></div>)}    
+                        {(!isLoad && adverts.length > 4) && (<div className={styles.load_more_btn_box}><button className={styles.load_more_button} type="button" onClick={handleLoadMoreClick}>Load more</button></div>)}    
                             </>)
                         : (<p>There is no campers</p>)}
                     {activeModal && <ModalWindow active={activeModal} setActive={setActiveModal} />}

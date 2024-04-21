@@ -9,7 +9,6 @@ export const CamperCatalogCamp = ({ data, setActive, setAdvertId}) => {
     const favorites = useSelector(selectFavorites);
     const dispatch = useDispatch();
     const [favorite, setFavorite] = useState(false);
-
     useEffect(() => {
         if (favorites.find(fav => fav.name === data.name))
             setFavorite(true);

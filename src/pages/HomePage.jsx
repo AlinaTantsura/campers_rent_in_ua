@@ -1,6 +1,6 @@
 import { HomeSection } from "../components/HomeSection/HomeSection";
 
-function HomePage(){
+function HomePage() {
     return (
         <main>
             <HomeSection />

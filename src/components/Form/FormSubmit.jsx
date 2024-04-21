@@ -72,7 +72,6 @@ export const FormSubmit = () => {
                     name="bookingDate"
                     id="bookingDate"
                     className={errors.bookingDate && touched.bookingDate ? `${styles.error_input} ${styles.date_input}` : `${styles.input_form} ${styles.date_input}`}
-                    // value={Date.now}
                     onChange={handleChange}
                     onBlur={handleBlur}
                         />

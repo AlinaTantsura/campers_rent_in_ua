@@ -20,15 +20,24 @@
 }
 .picture_box{
     width: 400px;
-    height: 400px;
+    height: 300px;
     overflow: hidden;
     border-radius: 20px;
     border-bottom-left-radius: 20px;
+}
+
+.picture_box_list{
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 24px;
 }
 .list_picture{
     transition: var(--transition);
     border-radius: 20px;
     object-fit: cover;
+    width: 400px;
+    height: 300px;
 }
 .list_picture:hover{
     transform: scale(1.2);
