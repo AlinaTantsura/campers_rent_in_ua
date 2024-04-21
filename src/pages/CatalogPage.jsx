@@ -7,6 +7,8 @@ import styles from "./CatalogPage.module.css";
 import { SideBarSection } from "../components/SideBarSection/SideBarSection";
 import { ModalWindow } from "../components/ModalWindow/ModalWindow";
 import { useNavigate } from "react-router-dom";
+import { Notify } from "notiflix";
+
 
 function CatalogPage() {
     const dispatch = useDispatch();
@@ -18,9 +20,8 @@ function CatalogPage() {
     const [activeModal, setActiveModal] = useState(false);
 
     useEffect(() => {
-
         dispatch(fetchData());
-        
+        if(error) Notify.failure(error)
         if (!activeModal) return
         const handleEsc = (e) => {
             if (activeModal && e.key === "Escape") {
@@ -34,7 +35,7 @@ function CatalogPage() {
             document.removeEventListener('keydown', handleEsc);
         });
 
-    }, [dispatch, activeModal, navigate])
+    }, [dispatch, activeModal, navigate, error])
 
     if (activeModal) {
         document.body.style.position = 'fixed';
@@ -44,13 +45,14 @@ function CatalogPage() {
         document.body.style.position = '';
         document.body.style.top = '';
     };
+  
     
     const handleLoadMoreClick = () => {
         setIsLoad(true);
     }
     return (
-        isLoading ? (<p>Loading....</p>) : 
-            <div className={styles.main_container}>
+        (isLoading && !error) ? (<p>Loading....</p>) :  
+            (<div className={styles.main_container}>
                 <SideBarSection />
                 <section>
                     {adverts.length > 0 ? (
@@ -64,12 +66,13 @@ function CatalogPage() {
                         </CamperCatalogCamp>))
                     }
                         </ul>    
-                        {(!isLoad && adverts.length > 4) && (<div className={styles.load_more_btn_box}><button className={styles.load_more_button} type="button" onClick={handleLoadMoreClick}>Load more</button></div>)}    
+                        {(!isLoad && !error && adverts.length > 4) && (<div className={styles.load_more_btn_box}><button className={styles.load_more_button} type="button" onClick={handleLoadMoreClick}>Load more</button></div>)}    
                             </>)
-                        : (<p>There is no campers</p>)}
+                    : (<p>There is no campers</p>)}
+                
                     {activeModal && <ModalWindow active={activeModal} setActive={setActiveModal} />}
                 </section>
-            </div>
+                </div>)
     )
 };
 

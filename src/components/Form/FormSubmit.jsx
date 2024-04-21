@@ -1,6 +1,7 @@
 import { Formik } from "formik"
 import styles from "./FormSubmit.module.css"
 import * as Yup from "yup"
+import { Notify } from "notiflix"
 // import sprite from "../images/sprite.svg"
 
 export const FormSubmit = () => {
@@ -22,7 +23,7 @@ export const FormSubmit = () => {
                     comment: Yup.string().min(3)
                 })}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
-                    console.log(values);
+                    Notify.success(`Data is successfully submit))))`)
                     resetForm();
                 }}>
                 
@@ -75,7 +76,6 @@ export const FormSubmit = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                         />
-                    {/* <button className={styles.bookingDate_btn}><svg width="20" height="20"><use href={sprite + "#icon-Button"} /></svg></button>     */}
                     {errors.bookingDate && touched.bookingDate && (
                     <span className={styles.error}>{errors.bookingDate}</span>
                   )}

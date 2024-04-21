@@ -12,7 +12,7 @@ const Header = () => {
 
     return (
         <header >
-            <div className={styles.header}>
+            <div className={styles.header_box}>
             <div onClick={handleClick} className={styles.title_box}>
                 <img src={camper} alt="Icon camper" width={"25px"}/>
                 <h3>Campers rent</h3>

@@ -4,6 +4,7 @@ import styles from "./CamperCatalogCard.module.css"
 import { selectFavorites } from "../../redux/favorites/favoriteSelectors";
 import { useEffect, useState } from "react";
 import { addCurrentItemInfo, addFavorite, deleteFavorite } from "../../redux/favorites/favoritesSlice";
+import { Notify } from "notiflix";
 
 export const CamperCatalogCamp = ({ data, setActive, setAdvertId}) => {
     const favorites = useSelector(selectFavorites);
@@ -18,11 +19,13 @@ export const CamperCatalogCamp = ({ data, setActive, setAdvertId}) => {
         if (!favorite) {
             setFavorite(true);
             dispatch(addFavorite(data))
+            Notify.success(`${data.name} is successfully added to the favourite list`)
             
         }
         else {
             setFavorite(false);
             dispatch(deleteFavorite(data.name))
+            Notify.success(`${data.name} is successfully deleted from the favourite list`)
         }
     }
 
