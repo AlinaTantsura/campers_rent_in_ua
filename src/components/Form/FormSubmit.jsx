@@ -2,7 +2,6 @@ import { Formik } from "formik"
 import styles from "./FormSubmit.module.css"
 import * as Yup from "yup"
 import { Notify } from "notiflix"
-// import sprite from "../images/sprite.svg"
 
 export const FormSubmit = () => {
     return (
