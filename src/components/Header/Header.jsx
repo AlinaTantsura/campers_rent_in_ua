@@ -11,7 +11,7 @@ const Header = () => {
     }
 
     return (
-        <header className={styles.header_box}>
+        // <header className={styles.header_box}>
             <div className={styles.header_box}>
             <div onClick={handleClick} className={styles.title_box}>
                 <img src={camper} alt="Icon camper" width={"25px"}/>
@@ -24,7 +24,7 @@ const Header = () => {
                 </nav>   
 
             </div>
-        </header>
+        // </header>
     )
 };
 
