@@ -26,3 +26,10 @@
     border: 1px solid var(--button);
     cursor: pointer;
 }
+
+.loader_container{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
