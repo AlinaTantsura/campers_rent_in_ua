@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom"
 import styles from "./ModalWindow.module.css"
 import sprite from "../images/sprite.svg"
 import { nanoid } from "nanoid"
@@ -11,7 +12,7 @@ export const ModalWindow = ({ active, setActive, pathname="/catalog"}) => {
     const location = useLocation();
     const isFeaturesPath = location.pathname === "/catalog/features" || location.pathname === "/catalog" || location.pathname === "/favorites/features" || location.pathname === "/favorites"
 
-    return (
+    return ReactDOM.createPortal(
         <div className={active ? `${styles.backdrop} ${styles.active}` : `${styles.backdrop}`} onClick={() => { setActive(false);  navigate(pathname)}}>
             <div className={active ? `${styles.content_box} ${styles.active}` : `${styles.content_box}`} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.title_box}>
@@ -40,6 +41,7 @@ export const ModalWindow = ({ active, setActive, pathname="/catalog"}) => {
             
                 <Outlet />
             </div>
-        </div>
+        </div>,
+        document.getElementById("portal")
     )
 }

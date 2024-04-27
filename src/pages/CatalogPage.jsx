@@ -16,12 +16,18 @@ function CatalogPage() {
   const adverts = useSelector(selectData);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
-  const [isLoad, setIsLoad] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
+  const [advertsItems, setAdvertsItems] = useState([]);
+  const [page, setPage] = useState(1); 
+
+
 
   useEffect(() => {
-    dispatch(fetchData());
-    if (error) Notify.failure(error);
+    const FetchData = () => {
+      dispatch(fetchData(page));
+      if (error) Notify.failure(error);
+    }
+    FetchData()
     if (!activeModal) return;
     const handleEsc = e => {
       if (activeModal && e.key === 'Escape') {
@@ -34,8 +40,13 @@ function CatalogPage() {
     return () => {
       document.removeEventListener('keydown', handleEsc);
     };
-  }, [dispatch, activeModal, navigate, error]);
+  }, [dispatch, activeModal, navigate, error, page]);
 
+  if (adverts.length !== 0 && advertsItems.length === 0) {
+    setAdvertsItems([...adverts])
+    if(page===1) setPage(2)
+  }
+  
   if (activeModal) {
     document.body.style.position = 'fixed';
     document.body.style.top = `-${window.scrollY}px`;
@@ -43,10 +54,13 @@ function CatalogPage() {
     document.body.style.position = '';
     document.body.style.top = '';
   }
-
   const handleLoadMoreClick = () => {
-    setIsLoad(true);
+    if (adverts.length > 0) {
+      setPage(page + 1);
+      if(page > 1) setAdvertsItems([...advertsItems ,...adverts])
+    }
   };
+  
   return (
     <main>
       {isLoading && !error ? (
@@ -55,28 +69,19 @@ function CatalogPage() {
         <div className={styles.main_container}>
           <SideBarSection />
           <section>
-            {adverts.length > 0 ? (
+            {advertsItems.length > 0 ? (
               <>
                 <ul className={styles.card_box}>
-                  {isLoad
-                    ? adverts.map(advert => (
+                  {advertsItems.map(advert => (
                         <CamperCatalogCamp
                           data={advert}
                           setActive={setActiveModal}
                           key={advert._id}
                         ></CamperCatalogCamp>
                       ))
-                    : adverts
-                        .slice(0, 4)
-                        .map(advert => (
-                          <CamperCatalogCamp
-                            data={advert}
-                            setActive={setActiveModal}
-                            key={advert._id}
-                          ></CamperCatalogCamp>
-                        ))}
+                  }
                 </ul>
-                {!isLoad && !error && adverts.length > 4 && (
+                {adverts.length !== 0 && !error && (
                   <div className={styles.load_more_btn_box}>
                     <button
                       className={styles.load_more_button}
