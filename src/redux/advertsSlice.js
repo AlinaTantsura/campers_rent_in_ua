@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchData } from './operations';
+import { fetchAllData, fetchData } from './operations';
 
 const advertsSlice = createSlice({
   name: 'adverts',
@@ -16,27 +16,26 @@ const advertsSlice = createSlice({
   reducers: {
     addLocation(state, action) {
       state.filters.location = action.payload;
-      if (state.filters.location)
-        state.filteredItems = state.items.filter(item =>
-          item.location.toLowerCase().includes(state.filters.location)
-        );
-      else state.filteredItems = state.items;
     },
     addEquipment(state, action) {
-      state.filters.equipment = action.payload.equipment;
-      if (state.filters.equipment.length > 0) {
-        state.filteredItems = state.items.filter(item =>
-          state.filters.equipment.every(eq => {
-            if (eq !== 'transmission')
-              return (
-                item.details.hasOwnProperty(eq) && item.details[`${eq}`] !== 0
-              );
-            else return item.transmission === 'automatic';
-          })
-        );
-      } else state.filteredItems = state.items;
-    },
+      state.filters.equipment = action.payload;
+    }
   },
+  //   // addEquipment(state, action) {
+  //   //   state.filters.equipment = action.payload.equipment;
+  //   //   if (state.filters.equipment.length > 0) {
+  //   //     state.filteredItems = state.items.filter(item =>
+  //   //       state.filters.equipment.every(eq => {
+  //   //         if (eq !== 'transmission')
+  //   //           return (
+  //   //             item.details.hasOwnProperty(eq) && item.details[`${eq}`] !== 0
+  //   //           );
+  //   //         else return item.transmission === 'automatic';
+  //   //       })
+  //   //     );
+  //   //   } else state.filteredItems = state.items;
+  //   // },
+  // },
   extraReducers: builder => {
     builder
       .addCase(fetchData.pending, (state, action) => {
@@ -45,10 +44,33 @@ const advertsSlice = createSlice({
       .addCase(fetchData.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.items = action.payload;
+        state.items = action.payload
         state.filteredItems = action.payload;
       })
       .addCase(fetchData.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchAllData.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAllData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.items = action.payload
+        if (state.filters.location && state.filters.equipment.length === 0) state.filteredItems = action.payload.filter(item =>
+          item.location.toLowerCase()
+            .includes(state.filters.location.toLowerCase()));
+        else if (state.filters.location && state.filters.equipment.length !== 0) state.filteredItems = action.payload.filter(item =>
+          item.location.toLowerCase()
+            .includes(state.filters.location.toLowerCase()) && item.details[state.filters.equipment[0]]
+          );
+        else if (!state.filters.location && state.filters.equipment.length !== 0) {
+          state.filteredItems = action.payload.filter(item =>
+          item.details[state.filters.equipment[1]]
+          );}
+      })
+      .addCase(fetchAllData.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

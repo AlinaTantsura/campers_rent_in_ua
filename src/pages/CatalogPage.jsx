@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchData } from '../redux/operations';
-import { selectData, selectError, selectIsLoading } from '../redux/selectors';
+import { fetchAllData, fetchData } from '../redux/operations';
+import {
+  selectData,
+  selectEquipment,
+  selectError,
+  selectIsLoading,
+  selectLocation,
+} from '../redux/selectors';
 import { CamperCatalogCamp } from '../components/CamperCatalogCard/CamperCatalogCard';
 import styles from './CatalogPage.module.css';
 import { SideBarSection } from '../components/SideBarSection/SideBarSection';
@@ -16,18 +22,23 @@ function CatalogPage() {
   const adverts = useSelector(selectData);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
+  const location = useSelector(selectLocation);
+  const equipment = useSelector(selectEquipment);
   const [activeModal, setActiveModal] = useState(false);
   const [advertsItems, setAdvertsItems] = useState([]);
-  const [page, setPage] = useState(1); 
-
-
-
+  const [page, setPage] = useState(1);
+  console.log(equipment)
   useEffect(() => {
     const FetchData = () => {
-      dispatch(fetchData(page));
+      if (!location && equipment.length === 0) dispatch(fetchData(page));
+      else {
+        dispatch(fetchAllData());
+        if(adverts.length === 0) Notify.warning("There are no campers for yours filter")
+      }
       if (error) Notify.failure(error);
-    }
-    FetchData()
+    };
+    FetchData();
+
     if (!activeModal) return;
     const handleEsc = e => {
       if (activeModal && e.key === 'Escape') {
@@ -40,13 +51,13 @@ function CatalogPage() {
     return () => {
       document.removeEventListener('keydown', handleEsc);
     };
-  }, [dispatch, activeModal, navigate, error, page]);
+  }, [dispatch, activeModal, navigate, error, page, location, advertsItems, equipment.length]);
 
   if (adverts.length !== 0 && advertsItems.length === 0) {
-    setAdvertsItems([...adverts])
-    if(page===1) setPage(2)
+    setAdvertsItems([...adverts]);
+    if (page === 1) setPage(2);
   }
-  
+
   if (activeModal) {
     document.body.style.position = 'fixed';
     document.body.style.top = `-${window.scrollY}px`;
@@ -57,14 +68,16 @@ function CatalogPage() {
   const handleLoadMoreClick = () => {
     if (adverts.length > 0) {
       setPage(page + 1);
-      if(page > 1) setAdvertsItems([...advertsItems ,...adverts])
+      if (page > 1) setAdvertsItems([...advertsItems, ...adverts]);
     }
   };
-  
+
   return (
     <main>
       {isLoading && !error ? (
-        <div className={styles.loader_container}><Loader /></div>
+        <div className={styles.loader_container}>
+          <Loader />
+        </div>
       ) : (
         <div className={styles.main_container}>
           <SideBarSection />
@@ -72,16 +85,22 @@ function CatalogPage() {
             {advertsItems.length > 0 ? (
               <>
                 <ul className={styles.card_box}>
-                  {advertsItems.map(advert => (
-                        <CamperCatalogCamp
-                          data={advert}
-                          setActive={setActiveModal}
-                          key={advert._id}
-                        ></CamperCatalogCamp>
-                      ))
-                  }
+                  {!location ? advertsItems.map(advert => (
+                    <CamperCatalogCamp
+                      data={advert}
+                      setActive={setActiveModal}
+                      key={advert._id}
+                    ></CamperCatalogCamp>
+                  ))
+                : adverts.map(advert => (
+                    <CamperCatalogCamp
+                      data={advert}
+                      setActive={setActiveModal}
+                      key={advert._id}
+                    ></CamperCatalogCamp>
+                  ))}
                 </ul>
-                {adverts.length !== 0 && !error && (
+                {adverts.length !== 0 && !error && !location && (
                   <div className={styles.load_more_btn_box}>
                     <button
                       className={styles.load_more_button}
@@ -95,7 +114,8 @@ function CatalogPage() {
               </>
             ) : (
               <p>There is no campers</p>
-            )}
+              )
+            }
 
             {activeModal && (
               <ModalWindow active={activeModal} setActive={setActiveModal} />

@@ -1,26 +1,16 @@
 import sprite from "../images/sprite.svg";
 import styles from "./SideBarSection.module.css"
 import { useDispatch } from "react-redux";
-import { addLocation, addEquipment } from "../../redux/advertsSlice";
-import { useState } from "react";
+import { addEquipment, addLocation} from "../../redux/advertsSlice";
 
 export const SideBarSection = () => {
     const dispatch = useDispatch();
-    const [location, setLocation] = useState("");
-    const [equipment, setEquipment] = useState([]);
     const handleChange = (e) => {
         dispatch(addLocation(e.target.value.toLowerCase()))
-        setLocation(e.target.value.toLowerCase())
     }
-    
-    const handleFilterClick = () => {
-        dispatch(addEquipment({equipment, location}));
-    }
-    const handleChangeCheck = (e) => {
-        if (e.target.checked) setEquipment([...equipment, e.target.value]);
-        else {
-            setEquipment([...equipment.filter(eq => eq !== e.target.value)])
-        }
+
+    const handleFilterButton = () => {
+        dispatch(addEquipment(["airConditioner", "kokosh"]))
     }
 
     return (<section>
@@ -39,23 +29,23 @@ export const SideBarSection = () => {
                 <h4 className={styles.filter_title}>Vehicle equipment</h4>
             <ul className={styles.buttons_box}>
                 <li className={styles.input_item}>
-                    <input type="checkbox" name="AC" value="airConditioner" id="AC" className={styles.input_button} onChange={handleChangeCheck}/>
+                    <input type="checkbox" name="AC" value="airConditioner" id="AC" className={styles.input_button} />
                     <label className={styles.input_label} htmlFor="AC"><svg width="32" height="32"><use href={sprite + "#icon-Vector"} /></svg>AC</label>
                 </li>
                 <li className={styles.input_item}>
-                    <input type="checkbox" name="Automatic" value="transmission" id="Automatic" className={styles.input_button} onChange={handleChangeCheck}/>
+                    <input type="checkbox" name="Automatic" value="transmission" id="Automatic" className={styles.input_button} />
                     <label className={styles.input_label} htmlFor="Automatic"><svg width="32" height="32"><use href={sprite + "#icon-Automatic"} /></svg>Automatic</label>
                 </li>
                 <li className={styles.input_item}>
-                    <input type="checkbox" name="Kitchen" value="kitchen" id="Kitchen" className={styles.input_button} onChange={handleChangeCheck} />
+                    <input type="checkbox" name="Kitchen" value="kitchen" id="Kitchen" className={styles.input_button}  />
                     <label className={styles.input_label} htmlFor="Kitchen"><svg width="32" height="32"><use href={sprite + "#icon-Kitchen"} /></svg>Kitchen</label>
                 </li>
                 <li className={styles.input_item}>
-                    <input type="checkbox" name="TV" value="TV" id="TV" className={styles.input_button} onChange={handleChangeCheck}/>
+                    <input type="checkbox" name="TV" value="TV" id="TV" className={styles.input_button} />
                     <label className={styles.input_label} htmlFor="TV"><svg width="32" height="32"><use href={sprite + "#icon-Vertical-container-1"} /></svg>TV</label>
                 </li>
                 <li className={styles.input_item}>
-                    <input type="checkbox" name="WC" value="toilet" id="WC" className={styles.input_button} onChange={handleChangeCheck}/>
+                    <input type="checkbox" name="WC" value="toilet" id="WC" className={styles.input_button} />
                     <label className={styles.input_label} htmlFor="WC"><svg width="32" height="32"><use href={sprite + "#icon-Rating"} /></svg>WC</label>
                 </li>
             </ul>
@@ -66,7 +56,7 @@ export const SideBarSection = () => {
                     <button className={styles.filter_button} type="button"><svg width="40" height="28"><use href={sprite + "#icon-Button-1"}  /></svg>Fully Integrated</button>
                     <button className={styles.filter_button} type="button"><svg width="40" height="28"><use href={sprite + "#icon-camper"} /></svg>Alcove</button>
                 </div>
-                    <button className={styles.search_button} type="button" onClick={handleFilterClick}>Search</button>
+                    <button className={styles.search_button} type="button" onClick={handleFilterButton}>Search</button>
         </form>
                 </section>)
 }
