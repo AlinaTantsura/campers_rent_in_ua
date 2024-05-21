@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchAllData, fetchData } from './operations';
+import { Notify } from 'notiflix';
 
 const advertsSlice = createSlice({
   name: 'adverts',
@@ -7,9 +8,9 @@ const advertsSlice = createSlice({
     items: [],
     isLoading: false,
     error: null,
-    filteredItems: [],
     filters: {
       location: '',
+      vehicleType: '',
       equipment: [],
     },
   },
@@ -19,23 +20,11 @@ const advertsSlice = createSlice({
     },
     addEquipment(state, action) {
       state.filters.equipment = action.payload;
-    }
+    },
+    addVehicleType(state, action) {
+      state.filters.vehicleType = action.payload;
+    },
   },
-  //   // addEquipment(state, action) {
-  //   //   state.filters.equipment = action.payload.equipment;
-  //   //   if (state.filters.equipment.length > 0) {
-  //   //     state.filteredItems = state.items.filter(item =>
-  //   //       state.filters.equipment.every(eq => {
-  //   //         if (eq !== 'transmission')
-  //   //           return (
-  //   //             item.details.hasOwnProperty(eq) && item.details[`${eq}`] !== 0
-  //   //           );
-  //   //         else return item.transmission === 'automatic';
-  //   //       })
-  //   //     );
-  //   //   } else state.filteredItems = state.items;
-  //   // },
-  // },
   extraReducers: builder => {
     builder
       .addCase(fetchData.pending, (state, action) => {
@@ -44,8 +33,7 @@ const advertsSlice = createSlice({
       .addCase(fetchData.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.items = action.payload
-        state.filteredItems = action.payload;
+        state.items = action.payload;
       })
       .addCase(fetchData.rejected, (state, action) => {
         state.isLoading = false;
@@ -57,18 +45,29 @@ const advertsSlice = createSlice({
       .addCase(fetchAllData.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.items = action.payload
-        if (state.filters.location && state.filters.equipment.length === 0) state.filteredItems = action.payload.filter(item =>
-          item.location.toLowerCase()
-            .includes(state.filters.location.toLowerCase()));
-        else if (state.filters.location && state.filters.equipment.length !== 0) state.filteredItems = action.payload.filter(item =>
-          item.location.toLowerCase()
-            .includes(state.filters.location.toLowerCase()) && item.details[state.filters.equipment[0]]
+        state.items = action.payload;
+        if (state.filters.location) {
+          state.items = state.items.filter(item =>
+            item.location
+              .toLowerCase()
+              .includes(state.filters.location.toLowerCase())
           );
-        else if (!state.filters.location && state.filters.equipment.length !== 0) {
-          state.filteredItems = action.payload.filter(item =>
-          item.details[state.filters.equipment[1]]
-          );}
+        }
+        if (state.filters.equipment.length > 0) {
+          state.items = state.items.filter(item =>
+            state.filters.equipment.every(eq => {
+              if (eq !== 'transmission') return item.details[eq];
+              return item.transmission === 'automatic';
+            })
+          );
+        }
+        if (state.filters.vehicleType) {
+          state.items = state.items.filter(
+            item => item.form === state.filters.vehicleType
+          );
+        }
+        if (state.items.length === 0)
+          Notify.warning('There are no campers for current filter');
       })
       .addCase(fetchAllData.rejected, (state, action) => {
         state.isLoading = false;
@@ -77,5 +76,6 @@ const advertsSlice = createSlice({
   },
 });
 
-export const { addLocation, addEquipment } = advertsSlice.actions;
+export const { addLocation, addEquipment, addVehicleType } =
+  advertsSlice.actions;
 export const advertsReducer = advertsSlice.reducer;

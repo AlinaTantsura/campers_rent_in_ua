@@ -7,6 +7,7 @@ import {
   selectError,
   selectIsLoading,
   selectLocation,
+  selectVehicleType,
 } from '../redux/selectors';
 import { CamperCatalogCamp } from '../components/CamperCatalogCard/CamperCatalogCard';
 import styles from './CatalogPage.module.css';
@@ -24,16 +25,17 @@ function CatalogPage() {
   const error = useSelector(selectError);
   const location = useSelector(selectLocation);
   const equipment = useSelector(selectEquipment);
+  const vehicleType = useSelector(selectVehicleType);
   const [activeModal, setActiveModal] = useState(false);
   const [advertsItems, setAdvertsItems] = useState([]);
   const [page, setPage] = useState(1);
-  console.log(equipment)
+  
   useEffect(() => {
     const FetchData = () => {
-      if (!location && equipment.length === 0) dispatch(fetchData(page));
+      if (!location && equipment.length === 0 && !vehicleType)
+        dispatch(fetchData(page));
       else {
         dispatch(fetchAllData());
-        if(adverts.length === 0) Notify.warning("There are no campers for yours filter")
       }
       if (error) Notify.failure(error);
     };
@@ -51,7 +53,18 @@ function CatalogPage() {
     return () => {
       document.removeEventListener('keydown', handleEsc);
     };
-  }, [dispatch, activeModal, navigate, error, page, location, advertsItems, equipment.length]);
+  }, [
+    dispatch,
+    activeModal,
+    navigate,
+    error,
+    page,
+    location,
+    advertsItems,
+    equipment.length,
+    adverts.length,
+    vehicleType,
+  ]);
 
   if (adverts.length !== 0 && advertsItems.length === 0) {
     setAdvertsItems([...adverts]);
@@ -82,40 +95,45 @@ function CatalogPage() {
         <div className={styles.main_container}>
           <SideBarSection />
           <section>
-            {advertsItems.length > 0 ? (
-              <>
-                <ul className={styles.card_box}>
-                  {!location ? advertsItems.map(advert => (
-                    <CamperCatalogCamp
-                      data={advert}
-                      setActive={setActiveModal}
-                      key={advert._id}
-                    ></CamperCatalogCamp>
-                  ))
-                : adverts.map(advert => (
-                    <CamperCatalogCamp
-                      data={advert}
-                      setActive={setActiveModal}
-                      key={advert._id}
-                    ></CamperCatalogCamp>
-                  ))}
-                </ul>
-                {adverts.length !== 0 && !error && !location && (
-                  <div className={styles.load_more_btn_box}>
-                    <button
-                      className={styles.load_more_button}
-                      type="button"
-                      onClick={handleLoadMoreClick}
-                    >
-                      Load more
-                    </button>
-                  </div>
-                )}
-              </>
-            ) : (
-              <p>There is no campers</p>
-              )
-            }
+            {!location &&
+              equipment.length === 0 &&
+              !vehicleType &&
+              advertsItems.length > 0 && (
+                <>
+                  {advertsItems.length === 0 && <p>There is no campers</p>}
+                  <ul className={styles.card_box}>
+                    {advertsItems.map(advert => (
+                      <CamperCatalogCamp
+                        data={advert}
+                        setActive={setActiveModal}
+                        key={advert._id}
+                      ></CamperCatalogCamp>
+                    ))}
+                  </ul>
+                  {adverts.length !== 0 && !error && (
+                    <div className={styles.load_more_btn_box}>
+                      <button
+                        className={styles.load_more_button}
+                        type="button"
+                        onClick={handleLoadMoreClick}
+                      >
+                        Load more
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            {(location || equipment.length > 0 || vehicleType) && (
+              <ul className={styles.card_box}>
+                {adverts.map(advert => (
+                  <CamperCatalogCamp
+                    data={advert}
+                    setActive={setActiveModal}
+                    key={advert._id}
+                  ></CamperCatalogCamp>
+                ))}
+              </ul>
+            )}
 
             {activeModal && (
               <ModalWindow active={activeModal} setActive={setActiveModal} />
